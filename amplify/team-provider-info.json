@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-awsmesaexchange-dev-bd9e3-authRole",
+      "UnauthRoleArn": "arn:aws:iam::043309347694:role/amplify-awsmesaexchange-dev-bd9e3-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::043309347694:role/amplify-awsmesaexchange-dev-bd9e3-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-awsmesaexchange-dev-bd9e3-deployment",
+      "UnauthRoleName": "amplify-awsmesaexchange-dev-bd9e3-unauthRole",
+      "StackName": "amplify-awsmesaexchange-dev-bd9e3",
+      "StackId": "arn:aws:cloudformation:us-east-2:043309347694:stack/amplify-awsmesaexchange-dev-bd9e3/3fa1e1b0-a6e5-11ef-9c14-0a7ee5fb5703",
+      "AmplifyAppId": "d3bfvblzr576pe"
+    }
+  }
+}
