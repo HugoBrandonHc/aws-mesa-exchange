@@ -1,0 +1,64 @@
+/* Variables de color */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e67e22;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+  }
+  
+  /* Estilos globales */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    color: var(--text-color);
+  }
+  
+  /* Barra de navegación */
+  nav {
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: inline-flex;
+    gap: 3rem;
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: var(--accent-color);
+  }
+  
+  /* Estilos responsivos generales */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  /* Centrar el título de la página de inicio */
+h1 {
+  text-align: center; /* Centra el texto horizontalmente */
+  font-size: 2.5rem; /* Tamaño del texto (opcional) */
+  margin-top: 2rem; /* Espaciado superior */
+}

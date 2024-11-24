@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
+// DetalleJuego.jsx
+import '../../assets/styles/DetalleJuego.css';
+
 
 function DetalleJuego() {
   const { id } = useParams(); // Obtén el ID del juego desde la URL

@@ -1,0 +1,94 @@
+/* Contenedor de autenticación */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 2rem auto;
+  }
+  
+  /* Formularios de autenticación */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .auth-form input {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .auth-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  
+  .auth-form button {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+  }
+  
+  .auth-form button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Casilla de términos y condiciones */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-align: left;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 0.3rem;
+    cursor: pointer;
+    transform: scale(1.5);
+  }
+  
+  .checkbox-container label {
+    margin: 0;
+  }
+  
+  .checkbox-container a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0.2rem;
+  }
+  
+  .checkbox-container a:hover {
+    color: var(--accent-color);
+  }
+  
+  /* Mensajes de error */
+  .error-message {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    background-color: #fdecea;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  

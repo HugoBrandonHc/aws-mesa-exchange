@@ -1,6 +1,9 @@
 // src/components/informativos/TerminosCondiciones.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+// TerminosCondiciones.jsx
+import '../../assets/styles/TerminosCondiciones.css';
+
 
 function TerminosCondiciones() {
   return (

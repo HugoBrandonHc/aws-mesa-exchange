@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
+// Catalogo.jsx
+import '../../assets/styles/Catalogo.css';
+
 
 function Catalogo() {
   const [games, setGames] = useState([]);

@@ -6,6 +6,9 @@ import SubirJuego from './components/juegos/SubirJuego';
 import Catalogo from './components/juegos/Catalogo';
 import DetalleJuego from './components/juegos/DetalleJuego';
 import TerminosCondiciones from './components/informativos/TerminosCondiciones';
+// App.js
+import './assets/styles/App.css';
+
 
 
 function App() {

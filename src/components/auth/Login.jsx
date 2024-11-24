@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
+// Login.jsx
+import '../../assets/styles/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');

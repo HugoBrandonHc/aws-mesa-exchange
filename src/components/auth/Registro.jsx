@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
+// Registro.jsx
+import '../../assets/styles/Login.css';
 
 function Registro() {
   const [nombreCompleto, setNombreCompleto] = useState('');
