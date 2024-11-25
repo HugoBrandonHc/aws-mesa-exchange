@@ -18,8 +18,14 @@ function Registro() {
     if (!acceptedTerms) {
       setError('Debes aceptar los Términos y Condiciones.');
       return;
+    
     }
     setError(null); // Resetea errores previos
+
+    if (!Amplify.Auth || typeof Amplify.Auth.signUp !== 'function') {
+      console.error('Auth no está configurado correctamente');
+      return;
+    }
     try {
       await Amplify.Auth.signUp({
         username: email,
