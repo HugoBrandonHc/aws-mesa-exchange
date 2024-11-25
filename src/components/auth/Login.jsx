@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/Login.css';
 
@@ -14,7 +14,7 @@ function Login() {
     setError(null); // Resetea errores previos
     try {
       // Cognito SignIn
-      const user = await Auth.signIn(email, password);
+      const user = await Amplify.Auth.signIn(email, password);
       console.log('Usuario autenticado:', user);
       navigate('/catalogo'); // Redirige tras un inicio exitoso
     } catch (err) {

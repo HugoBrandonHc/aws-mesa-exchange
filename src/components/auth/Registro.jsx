@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import '../../assets/styles/Login.css';
 
 function Registro() {
@@ -21,7 +21,7 @@ function Registro() {
     }
     setError(null); // Resetea errores previos
     try {
-      await Auth.signUp({
+      await Amplify.Auth.signUp({
         username: email,
         password,
         attributes: {
@@ -45,7 +45,7 @@ function Registro() {
   const handleConfirmarCodigo = async (event) => {
     event.preventDefault();
     try {
-      await Auth.confirmSignUp(email, confirmationCode);
+      await Amplify.Auth.confirmSignUp(email, confirmationCode);
       setSuccess('¡Registro confirmado exitosamente! Ahora puedes iniciar sesión.');
       setError(null);
       setIsConfirmationStep(false);
@@ -57,7 +57,7 @@ function Registro() {
 
   const handleReenviarCodigo = async () => {
     try {
-      await Auth.resendSignUp(email);
+      await Amplify.Auth.resendSignUp(email);
       setSuccess('Código de confirmación reenviado. Revisa tu correo.');
       setError(null);
     } catch (err) {
