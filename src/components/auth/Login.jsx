@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Amplify } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
-// Login.jsx
 import '../../assets/styles/Login.css';
 
 function Login() {
@@ -14,18 +13,18 @@ function Login() {
     event.preventDefault();
     setError(null); // Resetea errores previos
     try {
-      // Llamada a Cognito para iniciar sesión
-      await Amplify.Auth.signIn(email, password);
-      console.log("Usuario autenticado correctamente");
-      navigate('/home'); // Redirige al Home tras un inicio exitoso
+      // Cognito SignIn
+      const user = await Auth.signIn(email, password);
+      console.log('Usuario autenticado:', user);
+      navigate('/catalogo'); // Redirige tras un inicio exitoso
     } catch (err) {
-      console.error("Error en el inicio de sesión:", err);
+      console.error('Error en el inicio de sesión:', err);
       if (err.code === 'UserNotFoundException') {
-        setError("Usuario no encontrado.");
+        setError('Usuario no encontrado.');
       } else if (err.code === 'NotAuthorizedException') {
-        setError("Correo o contraseña incorrectos.");
+        setError('Correo o contraseña incorrectos.');
       } else {
-        setError("Ocurrió un error inesperado. Inténtalo de nuevo.");
+        setError('Ocurrió un error inesperado. Inténtalo de nuevo.');
       }
     }
   };

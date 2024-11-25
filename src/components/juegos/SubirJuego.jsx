@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
+import '../../assets/styles/SubirJuego.css'; // Asegúrate de tener estilos separados
 
 function SubirJuego() {
   const [nombre, setNombre] = useState('');
@@ -12,6 +13,7 @@ function SubirJuego() {
   const [categoria, setCategoria] = useState('');
   const [tipo, setTipo] = useState('');
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   // Verifica si el usuario está autenticado
@@ -47,7 +49,8 @@ function SubirJuego() {
     }
 
     try {
-      // Simula el envío del formulario (aquí se implementaría el backend)
+      setIsSubmitting(true);
+      // Aquí puedes realizar el envío del formulario a tu backend o servicio correspondiente
       console.log("Juego subido:", {
         nombre,
         descripcion,
@@ -63,6 +66,8 @@ function SubirJuego() {
     } catch (err) {
       console.error("Error al subir el juego:", err);
       setError("Hubo un problema al subir el juego. Inténtalo nuevamente.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -194,7 +199,9 @@ function SubirJuego() {
                 <option value="intercambio">Intercambio</option>
               </select>
             </div>
-            <button type="submit">Subir Juego</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Subiendo..." : "Subir Juego"}
+            </button>
           </form>
         </div>
       </main>

@@ -1,19 +1,43 @@
-// src/components/DetalleJuego.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-// DetalleJuego.jsx
-import '../../assets/styles/DetalleJuego.css';
-
+import '../../assets/styles/DetalleJuego.css'; // Asegúrate de tener estilos separados
 
 function DetalleJuego() {
   const { id } = useParams(); // Obtén el ID del juego desde la URL
   const navigate = useNavigate();
   const [juego, setJuego] = useState(null); // Almacena los datos del juego
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true); // Estado para indicar carga
   const [error, setError] = useState(null);
 
-  // Simula una autenticación antes de cargar la página
+  // Datos simulados (mover a un archivo separado si es necesario)
+  const fetchGameById = async (gameId) => {
+    const exampleGame = {
+      id: 1,
+      nombre: "Ticket to Ride",
+      descripcion: "Ticket to Ride es un juego de mesa de estrategia donde los jugadores compiten por conectar rutas ferroviarias a través de América del Norte.",
+      condicion: "Usado",
+      calidad: "8/10",
+      precio: "$30",
+      imagen: "https://via.placeholder.com/500x500.png?text=Ticket+to+Ride",
+      categoria: "Estrategia",
+      tipo: "Venta",
+      vendedor: {
+        nombre: "Juan Pérez",
+        email: "juan.perez@email.com",
+        telefono: "+34 123 456 789",
+      },
+    };
+
+    if (parseInt(gameId, 10) === exampleGame.id) {
+      return exampleGame;
+    } else {
+      throw new Error("El juego solicitado no existe.");
+    }
+  };
+
+  // Verifica si el usuario está autenticado
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -26,42 +50,31 @@ function DetalleJuego() {
     checkAuth();
   }, [navigate]);
 
-  // Simula la carga de datos (en producción, obtén datos del backend o API)
+  // Carga los datos del juego
   useEffect(() => {
     const fetchGame = async () => {
       try {
-        // Simulación de datos dinámicos basados en el ID
-        const exampleGame = {
-          id: 1,
-          nombre: "Ticket to Ride",
-          descripcion: "Ticket to Ride es un juego de mesa de estrategia donde los jugadores compiten por conectar rutas ferroviarias a través de América del Norte.",
-          condicion: "Usado",
-          calidad: "8/10",
-          precio: "$30",
-          imagen: "https://via.placeholder.com/500x500.png?text=Ticket+to+Ride",
-          categoria: "Estrategia",
-          tipo: "Venta",
-          vendedor: {
-            nombre: "Juan Pérez",
-            email: "juan.perez@email.com",
-            telefono: "+34 123 456 789",
-          },
-        };
-
-        // Simula la búsqueda por ID
-        if (parseInt(id, 10) === exampleGame.id) {
-          setJuego(exampleGame);
-        } else {
-          setError("El juego solicitado no existe.");
-        }
+        setLoading(true);
+        const game = await fetchGameById(id);
+        setJuego(game);
       } catch (err) {
         console.error("Error al cargar el juego:", err);
-        setError("Hubo un problema al cargar el juego.");
+        setError(err.message || "Hubo un problema al cargar el juego.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchGame();
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="container">
+        <h1>Cargando...</h1>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -69,14 +82,6 @@ function DetalleJuego() {
         <h1>Error</h1>
         <p>{error}</p>
         <Link to="/catalogo" className="btn">Volver al Catálogo</Link>
-      </div>
-    );
-  }
-
-  if (!juego) {
-    return (
-      <div className="container">
-        <h1>Cargando...</h1>
       </div>
     );
   }
@@ -118,7 +123,7 @@ function DetalleJuego() {
       {showModal && (
         <div className="modal" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+            <button className="close-btn" onClick={() => setShowModal(false)}>X</button>
             <h2>Datos del vendedor</h2>
             <p><strong>Nombre:</strong> {juego.vendedor.nombre}</p>
             <p><strong>Email:</strong> {juego.vendedor.email}</p>

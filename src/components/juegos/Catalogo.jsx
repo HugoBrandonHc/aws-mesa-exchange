@@ -1,44 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-// Catalogo.jsx
 import '../../assets/styles/Catalogo.css';
-
 
 function Catalogo() {
   const [games, setGames] = useState([]);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [conditionFilter, setConditionFilter] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   // Verifica si el usuario está autenticado
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const user = await Amplify.Auth.currentAuthenticatedUser();
-        console.log("Usuario autenticado:", user);
+        await Amplify.Auth.currentAuthenticatedUser();
+        console.log("Usuario autenticado.");
       } catch (err) {
-        console.error("Usuario no autenticado, redirigiendo a Login...");
+        console.error("Usuario no autenticado. Redirigiendo a Login...");
         navigate('/login'); // Redirige si no está autenticado
       }
     };
     checkAuth();
   }, [navigate]);
 
+  // Simula la carga de juegos (esto debe reemplazarse por una llamada a un backend real)
   useEffect(() => {
     const fetchGames = async () => {
-      // Juegos de ejemplo (simula datos desde un backend o API)
-      const exampleGames = [
-        { id: 1, title: 'Catan', type: 'Intercambio', condition: 'Usado (8/10)', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80' },
-        { id: 2, title: 'Ticket to Ride', type: 'Venta', condition: 'Nuevo', image: 'https://cdn.hashnode.com/res/hashnode/image/unsplash/FdTmaUlEr4A/upload/v1650335231394/MCTIII0fU.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-      ];
-      setGames(exampleGames);
+      try {
+        setLoading(true);
+        const exampleGames = [
+          { id: 1, title: 'Catan', type: 'Intercambio', condition: 'Usado (8/10)', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80' },
+          { id: 2, title: 'Ticket to Ride', type: 'Venta', condition: 'Nuevo', image: 'https://cdn.hashnode.com/res/hashnode/image/unsplash/FdTmaUlEr4A/upload/v1650335231394/MCTIII0fU.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+        ];
+        setGames(exampleGames);
+      } catch (err) {
+        console.error("Error al cargar juegos:", err);
+        setError("No se pudieron cargar los juegos. Intenta nuevamente.");
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchGames();
   }, []);
 
+  // Funciones de filtro
   const handleSearchChange = (e) => setSearch(e.target.value);
   const handleTypeChange = (e) => setTypeFilter(e.target.value);
   const handleConditionChange = (e) => setConditionFilter(e.target.value);
@@ -48,6 +57,26 @@ function Catalogo() {
     (typeFilter ? game.type === typeFilter : true) &&
     (conditionFilter ? game.condition.includes(conditionFilter) : true)
   );
+
+  // Si está cargando
+  if (loading) {
+    return (
+      <div className="container">
+        <h1>Cargando catálogo...</h1>
+      </div>
+    );
+  }
+
+  // Si hay un error al cargar
+  if (error) {
+    return (
+      <div className="container">
+        <h1>Error</h1>
+        <p>{error}</p>
+        <Link to="/" className="btn">Volver al inicio</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
