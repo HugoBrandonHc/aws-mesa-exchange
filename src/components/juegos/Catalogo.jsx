@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Amplify } from 'aws-amplify';
+import { Link } from 'react-router-dom';
 import '../../assets/styles/Catalogo.css';
 
 function Catalogo() {
@@ -10,23 +9,8 @@ function Catalogo() {
   const [conditionFilter, setConditionFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  // Verifica si el usuario está autenticado
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await Amplify.Auth.currentAuthenticatedUser();
-        console.log("Usuario autenticado.");
-      } catch (err) {
-        console.error("Usuario no autenticado. Redirigiendo a Login...");
-        navigate('/login'); // Redirige si no está autenticado
-      }
-    };
-    checkAuth();
-  }, [navigate]);
-
-  // Simula la carga de juegos (esto debe reemplazarse por una llamada a un backend real)
+  // Simula la carga de juegos
   useEffect(() => {
     const fetchGames = async () => {
       try {

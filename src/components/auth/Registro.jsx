@@ -18,7 +18,7 @@ function Registro() {
 
   return (
     <Authenticator
-      signUpAttributes={['email', 'phone_number', 'name']}
+      signUpAttributes={['email', 'phone_number', 'name', 'address', 'birthdate']}  // Añade más campos
       initialState="signUp"
     >
       {({ signOut, user: authUser }) => {

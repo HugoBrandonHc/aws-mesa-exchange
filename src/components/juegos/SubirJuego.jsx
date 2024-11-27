@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Amplify } from 'aws-amplify';
-import '../../assets/styles/SubirJuego.css'; // Asegúrate de tener estilos separados
+import '../../assets/styles/SubirJuego.css';
 
 function SubirJuego() {
   const [nombre, setNombre] = useState('');
@@ -15,20 +14,6 @@ function SubirJuego() {
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-
-  // Verifica si el usuario está autenticado
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const user = await Amplify.Auth.currentAuthenticatedUser();
-        console.log("Usuario autenticado:", user);
-      } catch (err) {
-        console.error("Usuario no autenticado, redirigiendo a Login...");
-        navigate('/login'); // Redirige si no está autenticado
-      }
-    };
-    checkAuth();
-  }, [navigate]);
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
@@ -50,7 +35,6 @@ function SubirJuego() {
 
     try {
       setIsSubmitting(true);
-      // Aquí puedes realizar el envío del formulario a tu backend o servicio correspondiente
       console.log("Juego subido:", {
         nombre,
         descripcion,
@@ -73,7 +57,6 @@ function SubirJuego() {
 
   return (
     <div>
-      {/* Barra de navegación */}
       <header>
         <div className="container">
           <nav>
@@ -88,7 +71,6 @@ function SubirJuego() {
         </div>
       </header>
 
-      {/* Contenido del formulario de subir juego */}
       <main>
         <div className="container">
           <h1>Subir Juego</h1>
