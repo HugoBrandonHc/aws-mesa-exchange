@@ -10,16 +10,14 @@ function Catalogo() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Simula la carga de juegos
+  // Simula la carga de juegos desde la API REST
   useEffect(() => {
     const fetchGames = async () => {
       try {
         setLoading(true);
-        const exampleGames = [
-          { id: 1, title: 'Catan', type: 'Intercambio', condition: 'Usado (8/10)', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80' },
-          { id: 2, title: 'Ticket to Ride', type: 'Venta', condition: 'Nuevo', image: 'https://cdn.hashnode.com/res/hashnode/image/unsplash/FdTmaUlEr4A/upload/v1650335231394/MCTIII0fU.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-        ];
-        setGames(exampleGames);
+        const response = await fetch('https://tu-api-url/games'); // Reemplaza con la URL correcta de tu API
+        const data = await response.json();
+        setGames(data);
       } catch (err) {
         console.error("Error al cargar juegos:", err);
         setError("No se pudieron cargar los juegos. Intenta nuevamente.");
@@ -36,9 +34,10 @@ function Catalogo() {
   const handleTypeChange = (e) => setTypeFilter(e.target.value);
   const handleConditionChange = (e) => setConditionFilter(e.target.value);
 
+  // Filtrar juegos según los criterios de búsqueda y filtro
   const filteredGames = games.filter((game) => 
     game.title.toLowerCase().includes(search.toLowerCase()) &&
-    (typeFilter ? game.type === typeFilter : true) &&
+    (typeFilter ? game.tradeType === typeFilter : true) &&
     (conditionFilter ? game.condition.includes(conditionFilter) : true)
   );
 
@@ -107,12 +106,12 @@ function Catalogo() {
         <div className="game-grid">
           {filteredGames.length > 0 ? (
             filteredGames.map((game) => (
-              <div className="game-card" key={game.id}>
-                <img src={game.image} alt={`${game.title} - ${game.type}`} />
+              <div className="game-card" key={game.gameID}>
+                <img src={game.imageUrl} alt={`${game.title} - ${game.tradeType}`} />
                 <div className="game-card-content">
                   <h3>{game.title}</h3>
-                  <p>{game.type} - {game.condition}</p>
-                  <Link to={`/detalle/${game.id}`} className="btn">Ver Detalles</Link>
+                  <p>{game.tradeType} - {game.condition}</p>
+                  <Link to={`/detalle/${game.gameID}`} className="btn">Ver Detalles</Link>
                 </div>
               </div>
             ))

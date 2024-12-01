@@ -28,6 +28,7 @@ function SubirJuego() {
     event.preventDefault();
     setError(null);
 
+    // Verificar que todos los campos estén completos
     if (!nombre || !descripcion || !condicion || !precio || !categoria || !tipo) {
       setError("Todos los campos son obligatorios.");
       return;
@@ -35,18 +36,36 @@ function SubirJuego() {
 
     try {
       setIsSubmitting(true);
-      console.log("Juego subido:", {
-        nombre,
-        descripcion,
-        condicion,
-        calidad: condicion === 'usado' ? calidad : 'N/A',
-        precio,
-        imagenes,
-        categoria,
-        tipo,
+
+      // Crear un objeto con los datos del juego
+      const juegoData = {
+        gameID: Math.random().toString(36).substr(2, 9), // Generar un ID único para el juego
+        title: nombre,
+        description: descripcion,
+        price: precio,
+        imageUrl: imagenes[0] ? imagenes[0].name : '',  // Si tienes imágenes, agrega una URL
+        createdAt: new Date().toISOString(),
+        condition: condicion,
+        quality: calidad || 'N/A',  // Solo si el juego es usado
+        category: categoria,
+        tradeType: tipo
+      };
+
+      // Llamar a la API REST para subir el juego
+      const response = await fetch('https://tu-api-url/games', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(juegoData),  // Enviar los datos del juego como JSON
       });
-      alert("¡Juego subido correctamente!");
-      navigate('/catalogo'); // Redirige al catálogo después de subir el juego
+
+      if (response.ok) {
+        alert("¡Juego subido correctamente!");
+        navigate('/catalogo'); // Redirige al catálogo después de subir el juego
+      } else {
+        throw new Error('Error al subir el juego');
+      }
     } catch (err) {
       console.error("Error al subir el juego:", err);
       setError("Hubo un problema al subir el juego. Inténtalo nuevamente.");
