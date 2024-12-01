@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Plataforma de Intercambio y Venta de Juegos de Mesa
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto esta siendo desarrollado como una forma de **aprender y poner en práctica los conocimientos adquiridos** en el curso de **AWS Practitioner**. La plataforma permite a los usuarios intercambiar y vender juegos de mesa, aprovechando tecnologías de **Amazon Web Services (AWS)** para ofrecer una solución segura y escalable.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+- **Autenticación segura** con **AWS Cognito**.
+- **Publicación de juegos de mesa** con detalles e imágenes.
+- **Búsqueda y filtrado avanzado** de juegos.
+- **Almacenamiento** de imágenes en **Amazon S3**.
+- **Gestión de datos** mediante **DynamoDB** (base de datos NoSQL).
+- **Seguridad** con **IAM**, **WAF** y **CloudTrail**.
+- **Monitoreo de costos** con **CloudWatch** para evitar exceder la capa gratuita de AWS.
+- **Escalabilidad** utilizando **Auto Scaling** para manejar picos de demanda.
 
-### `npm start`
+## Propósito de Aprendizaje
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Este proyecto tiene como objetivo **poner en práctica** las habilidades adquiridas en el curso de AWS Practitioner, explorando servicios como **AWS Cognito**, **DynamoDB**, **S3**, y **API Gateway**. A través de este desarrollo, busco consolidar mis conocimientos en la arquitectura en la nube, la seguridad de la información, y la escalabilidad de aplicaciones utilizando AWS.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías utilizadas
 
-### `npm test`
+- **AWS Amplify**: Para la configuración del frontend.
+- **AWS Cognito**: Para autenticación de usuarios.
+- **Amazon S3**: Para almacenamiento de imágenes.
+- **DynamoDB**: Base de datos NoSQL para almacenar datos de juegos y usuarios.
+- **AWS Lambda**: Para ejecutar funciones backend sin servidor.
+- **API Gateway**: Para manejar la comunicación entre frontend y backend.
+- **CloudWatch**: Para monitoreo de costos y rendimiento.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalación
 
-### `npm run build`
+1. Clonar el repositorio:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/HugoBrandonHc/proyecto-juegos-de-mesa.git cd proyecto-juegos-de-mesa
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Configurar el entorno de AWS:
+- Configurar AWS Amplify para el frontend.
+- Configurar AWS Cognito para la autenticación de usuarios.
+- Configurar Amazon S3 para el almacenamiento de imágenes.
+- Configurar DynamoDB para la base de datos.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Instalar dependencias:
 
-### `npm run eject`
+   ```bash
+   npm install
+   
+4. Ejecutar el proyecto localmente:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Uso
+- **Registro de usuarios**: Los usuarios pueden registrarse con su correo electrónico y contraseña mediante AWS Cognito.
+- **Publicación de juegos**: Los usuarios pueden añadir detalles y subir imágenes de los juegos que desean vender o intercambiar.
+- **Búsqueda y filtrado**: Los usuarios pueden buscar juegos por nombre, categoría o estado.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Licencia
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Este proyecto está licenciado bajo los términos de la **Licencia MIT**. Esto significa que eres libre de utilizar, modificar y distribuir el código, siempre y cuando se incluya una copia del aviso de la licencia en cualquier redistribución.
 
-## Learn More
+Para más detalles, puedes consultar el archivo [LICENSE](LICENSE.md) en este repositorio.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contacto
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para más información o preguntas, puedes contactarme en [hugobrandon17@gmail.com](mailto:hugobrandon17@gmail.com) o visitar mi perfil de [LinkedIn](https://www.linkedin.com/in/hugobrandonhuaytacortez).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

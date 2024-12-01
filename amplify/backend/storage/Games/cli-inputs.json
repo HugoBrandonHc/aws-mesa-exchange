@@ -1,0 +1,10 @@
+{
+  "resourceName": "Games",
+  "tableName": "GamesSubidos",
+  "partitionKey": {
+    "fieldName": "gameID",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

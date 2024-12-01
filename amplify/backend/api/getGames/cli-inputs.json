@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/games": {
+      "name": "/games",
+      "lambdaFunction": "gameFunction",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
