@@ -9,14 +9,25 @@
       "UnauthRoleName": "amplify-awsmesaexchange-dev-bd9e3-unauthRole",
       "StackName": "amplify-awsmesaexchange-dev-bd9e3",
       "StackId": "arn:aws:cloudformation:us-east-2:043309347694:stack/amplify-awsmesaexchange-dev-bd9e3/3fa1e1b0-a6e5-11ef-9c14-0a7ee5fb5703",
-      "AmplifyAppId": "d3bfvblzr576pe"
+      "AmplifyAppId": "d3bfvblzr576pe",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-awsmesaexchange-dev-bd9e3-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "awsmesaexchange4aa898fc": {}
       },
       "function": {
-        "gameFunction": {}
+        "gameFunction": {
+          "deploymentBucketName": "amplify-awsmesaexchange-dev-bd9e3-deployment",
+          "s3Key": "amplify-builds/gameFunction-68676439746965466c38-build.zip"
+        }
+      },
+      "storage": {
+        "Games": {},
+        "catalogo": {}
+      },
+      "api": {
+        "getGames": {}
       }
     }
   }

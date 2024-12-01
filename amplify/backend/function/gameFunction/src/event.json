@@ -1,11 +1,11 @@
 {
   "httpMethod": "POST",
-  "path": "/item",
+  "path": "/games",  // Asegúrate de que sea la ruta correcta
   "queryStringParameters": {
     "limit": "10"
   },
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"msg\":\"Hello from the event.json body\"}"
+  "body": "{\"gameID\":\"123\", \"title\":\"Catan\", \"description\":\"Juego de mesa\", \"price\":20.00, \"imageUrl\":\"https://example.com/catan.jpg\", \"createdAt\":\"2024-12-01T12:00:00Z\"}"
 }

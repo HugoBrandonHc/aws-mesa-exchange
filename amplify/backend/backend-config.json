@@ -64,6 +64,24 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_gameFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gameFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_gameFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "gameFunction"
+        }
+      ]
+    }
+  },
   "storage": {
     "Games": {
       "providerPlugin": "awscloudformation",
