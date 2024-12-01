@@ -1,0 +1,14 @@
+{
+  "resourceName": "catalogo",
+  "policyUUID": "09bc1b7e",
+  "bucketName": "games-images-bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

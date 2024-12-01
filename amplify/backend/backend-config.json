@@ -68,6 +68,11 @@
     "Games": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
+    },
+    "catalogo": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
