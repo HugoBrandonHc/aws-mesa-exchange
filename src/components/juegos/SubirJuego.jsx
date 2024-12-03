@@ -9,8 +9,6 @@ function SubirJuego() {
   const [calidad, setCalidad] = useState('');
   const [precio, setPrecio] = useState('');
   const [imagenes, setImagenes] = useState([]);
-  const [categoria, setCategoria] = useState('');
-  const [tipo, setTipo] = useState('');
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -28,44 +26,42 @@ function SubirJuego() {
     event.preventDefault();
     setError(null);
 
-    // Verificar que todos los campos estén completos
-    if (!nombre || !descripcion || !condicion || !precio || !categoria || !tipo) {
-      setError("Todos los campos son obligatorios.");
+    if (!nombre || !descripcion || !condicion || !precio) {
+      setError("Todos los campos obligatorios deben estar completos.");
       return;
     }
 
     try {
       setIsSubmitting(true);
 
-      // Crear un objeto con los datos del juego
+      // Crear un objeto con los datos requeridos por DynamoDB
       const juegoData = {
-        gameID: Math.random().toString(36).substr(2, 9), // Generar un ID único para el juego
-        title: nombre,
-        description: descripcion,
-        price: precio,
-        imageUrl: imagenes[0] ? imagenes[0].name : '',  // Si tienes imágenes, agrega una URL
-        createdAt: new Date().toISOString(),
-        condition: condicion,
-        quality: calidad || 'N/A',  // Solo si el juego es usado
-        category: categoria,
-        tradeType: tipo
+        gameID: Math.random().toString(36).substr(2, 9), // Generar un ID único
+        createdAt: new Date().toISOString(), // Fecha en formato ISO
+        description: descripcion, // Descripción del juego
+        imageUrl: imagenes[0] ? imagenes[0].name : '', // Nombre del archivo o vacío
+        price: parseFloat(precio), // Asegurarse de que sea un número
+        quality: condicion === 'usado' ? calidad : 'N/A', // Calidad o N/A si es nuevo
+        title: nombre // Nombre del juego
       };
 
-      // Llamar a la API REST para subir el juego
-      const response = await fetch('https://tu-api-url/games', {
+      // Enviar los datos a la API REST
+      const response = await fetch('https://0cey09ck26.execute-api.us-east-2.amazonaws.com/dev', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(juegoData),  // Enviar los datos del juego como JSON
+        body: JSON.stringify(juegoData),
       });
 
-      if (response.ok) {
-        alert("¡Juego subido correctamente!");
-        navigate('/catalogo'); // Redirige al catálogo después de subir el juego
-      } else {
-        throw new Error('Error al subir el juego');
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error('Error en la API:', errorDetails);
+        throw new Error('Error al subir el juego.');
       }
+
+      alert("¡Juego subido correctamente!");
+      navigate('/catalogo'); // Redirigir al catálogo
     } catch (err) {
       console.error("Error al subir el juego:", err);
       setError("Hubo un problema al subir el juego. Inténtalo nuevamente.");
@@ -171,34 +167,6 @@ function SubirJuego() {
                   </ul>
                 </div>
               )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="category">Categoría</label>
-              <select
-                id="category"
-                value={categoria}
-                onChange={(e) => setCategoria(e.target.value)}
-                required
-              >
-                <option value="">Seleccione la categoría</option>
-                <option value="estrategia">Estrategia</option>
-                <option value="cooperativo">Cooperativo</option>
-                <option value="familiar">Familiar</option>
-                <option value="euros">Eurogames</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="trade">Tipo</label>
-              <select
-                id="trade"
-                value={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-                required
-              >
-                <option value="">Seleccione el tipo</option>
-                <option value="venta">Venta</option>
-                <option value="intercambio">Intercambio</option>
-              </select>
             </div>
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Subiendo..." : "Subir Juego"}

@@ -7,5 +7,5 @@
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"gameID\":\"123\", \"title\":\"Catan\", \"description\":\"Juego de mesa\", \"price\":20.00, \"imageUrl\":\"https://example.com/catan.jpg\", \"createdAt\":\"2024-12-01T12:00:00Z\"}"
+  "body": "{\"gameID\":\"124\", \"title\":\"King Of Tokio\", \"description\":\"Juego de mesa\", \"price\":20.00, \"imageUrl\":\"https://example.com/catan.jpg\", \"createdAt\":\"2024-12-01T12:00:00Z\"}"
 }
