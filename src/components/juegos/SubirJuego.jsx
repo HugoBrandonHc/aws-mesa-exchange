@@ -46,7 +46,7 @@ function SubirJuego() {
       };
 
       // Enviar los datos a la API REST
-      const response = await fetch('https://0cey09ck26.execute-api.us-east-2.amazonaws.com/dev', {
+      const response = await fetch('https://0cey09ck26.execute-api.us-east-2.amazonaws.com/dev/games', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
