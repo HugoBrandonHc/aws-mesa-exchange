@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import awsmobile from '../../aws-exports'; // Importar configuración de AWS Amplify
 import '../../assets/styles/SubirJuego.css';
 
 function SubirJuego() {
@@ -12,6 +13,9 @@ function SubirJuego() {
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+
+  // Endpoint de la API REST desde aws-exports.js
+  const apiEndpoint = `${awsmobile.aws_cloud_logic_custom[0].endpoint}/games`;
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
@@ -26,6 +30,7 @@ function SubirJuego() {
     event.preventDefault();
     setError(null);
 
+    // Validar que todos los campos estén completos
     if (!nombre || !descripcion || !condicion || !precio) {
       setError("Todos los campos obligatorios deben estar completos.");
       return;
@@ -34,19 +39,24 @@ function SubirJuego() {
     try {
       setIsSubmitting(true);
 
-      // Crear un objeto con los datos requeridos por DynamoDB
+      // Crear un objeto con los datos requeridos
       const juegoData = {
         gameID: Math.random().toString(36).substr(2, 9), // Generar un ID único
-        createdAt: new Date().toISOString(), // Fecha en formato ISO
-        description: descripcion, // Descripción del juego
+        createdAt: new Date().toISOString(), // Fecha actual en formato ISO
+        description: descripcion,
         imageUrl: imagenes[0] ? imagenes[0].name : '', // Nombre del archivo o vacío
-        price: parseFloat(precio), // Asegurarse de que sea un número
-        quality: condicion === 'usado' ? calidad : 'N/A', // Calidad o N/A si es nuevo
-        title: nombre // Nombre del juego
+        price: parseFloat(precio), // Convertir a número
+        quality: condicion === 'usado' ? calidad : 'N/A', // Calidad solo si es usado
+        title: nombre, // Nombre del juego
+        condition: condicion,
+        category: 'estrategia', // Puedes cambiar o agregar esta categoría
+        tradeType: 'venta' // Esto es solo un ejemplo, puedes personalizarlo
       };
 
+      console.log("Datos enviados:", juegoData);
+
       // Enviar los datos a la API REST
-      const response = await fetch('https://0cey09ck26.execute-api.us-east-2.amazonaws.com/dev/games', {
+      const response = await fetch(apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,14 +64,14 @@ function SubirJuego() {
         body: JSON.stringify(juegoData),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        alert("¡Juego subido correctamente!");
+        navigate('/catalogo'); // Redirigir al catálogo después de subir el juego
+      } else {
         const errorDetails = await response.json();
         console.error('Error en la API:', errorDetails);
         throw new Error('Error al subir el juego.');
       }
-
-      alert("¡Juego subido correctamente!");
-      navigate('/catalogo'); // Redirigir al catálogo
     } catch (err) {
       console.error("Error al subir el juego:", err);
       setError("Hubo un problema al subir el juego. Inténtalo nuevamente.");
