@@ -19,7 +19,7 @@
       "function": {
         "gameFunction": {
           "deploymentBucketName": "amplify-awsmesaexchange-dev-bd9e3-deployment",
-          "s3Key": "amplify-builds/gameFunction-4757696c4a3433774e46-build.zip"
+          "s3Key": "amplify-builds/gameFunction-3563654655346b48635a-build.zip"
         }
       },
       "storage": {

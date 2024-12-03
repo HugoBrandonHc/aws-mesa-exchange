@@ -55,12 +55,23 @@ app.post(path, async function(req, res) {
     description: req.body.description,
     price: req.body.price,
     imageUrl: req.body.imageUrl,
-    createdAt: req.body.createdAt,
+    createdAt: req.body.createdAt || new Date().toISOString(),
     condition: req.body.condition,
     quality: req.body.quality || 'N/A',  // Si no se ha proporcionado calidad, colocar 'N/A'
     category: req.body.category,
     tradeType: req.body.tradeType
   };
+
+  // Logs detallados
+  console.log("Datos recibidos en POST /games:", req.body);
+  console.log("Datos preparados para DynamoDB:", gameData);
+
+
+  // Validaciones
+  if (!gameData.title || !gameData.description || isNaN(parseFloat(gameData.price))) {
+    res.status(400).json({ error: 'Datos obligatorios faltantes o inválidos (title, description, price).' });
+    return;
+  }
 
   // Configuración para insertar el juego en DynamoDB
   const putItemParams = {
@@ -68,13 +79,18 @@ app.post(path, async function(req, res) {
     Item: gameData
   };
 
+  // Log de parámetros enviados a DynamoDB
+  console.log("Parámetros enviados a DynamoDB:", putItemParams);
+
+
   try {
     // Insertar el juego en la base de datos
-    await ddbDocClient.send(new PutCommand(putItemParams));
+    const data = await ddbDocClient.send(new PutCommand(putItemParams));
+    console.log("Resultado de DynamoDB:", data);
     res.json({ success: 'Juego subido correctamente', gameID: gameData.gameID });
   } catch (err) {
-    console.error('Error al insertar el juego:', err);
-    res.status(500).json({ error: 'Error al insertar el juego' });
+    console.error("Error al insertar en DynamoDB:", err);
+    res.status(500).json({ error: 'Error al insertar el juego', details: err.message, stack: err.stack });
   }
 });
 
